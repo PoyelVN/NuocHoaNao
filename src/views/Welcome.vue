@@ -1,56 +1,66 @@
 <template>
-  <div>
+  <v-card class="mx-auto" max-width="500">
     <v-img :src="image" contain :lazy-src="image" class="elevation-3">
       <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
         <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
       </v-layout>
     </v-img>
 
-    <div class="text-xs-center">
-      <v-btn color="primary" dark>Click to Start</v-btn>
+    <div class="border accent 1px py-1">
+      <h2 class="text-xs-center">Quiz: What Perfume Are You ?</h2>
+
+      <div class="text-xs-center">
+        <v-btn color="primary" round dark>Click to Start</v-btn>
+      </div>
+      <h3
+        class="text-xs-center mb-2"
+      >Answer 4 questions and you will know what perfume is the BEST fit for you !</h3>
     </div>
+
+<v-img :src="Catalog"></v-img>
+
+    <!-- <h3
+      class="text-xs-center primary accent--text"
+      style="line-height:50px; height:50px; text-shadow: 2px 2px black"
+    >EXCEPTIONAL - VALENTINE DISCOUNT !</h3>
+
+    <h3 class="mt-2 text-xs-center mx-2" >
+      <img
+        :src="Valentine"
+        style="float: left;width:150px;height:120px;margin-right:15px;margin-top:3px"
+      >
+      15% discount on your first order !
+    </h3>
+
+    <div class="text-xs-center">
+      <v-btn color="primary" round dark>Click to Start</v-btn>
+    </div> -->
+
+
+<!-- <div>    <v-img :src="logo" style="width: 80px" class="text-xs-center"></v-img> -->
+<!-- </div> -->
 
     <v-footer dark app inset>
       <span class="ml-2">&copy; 2019 - FLO'S FRENCH PERFUMES</span>
       <v-spacer></v-spacer>
-
-      <v-btn class="mx-2"  icon>
-        <v-icon size="24px">fab fa-facebook</v-icon>
-      </v-btn>
-      <v-btn class="mx-1" dark icon>
-        <v-icon size="24px">fab fa-facebook</v-icon>
-      </v-btn>
-      <!-- <v-card class="flex" flat tile>
-        <v-card-title class="teal">
-          <strong class="subheading">Follow us !</strong>
-
-          <v-spacer></v-spacer>
-
-          <v-btn class="mx-3" dark icon>
-            <v-icon size="24px">fab fa-facebook</v-icon>
-          </v-btn>
-
-          <v-btn class="mx-3" dark icon>
-            <v-icon size="24px">fab fa-instagram</v-icon>
-          </v-btn>
-        </v-card-title>
-
-        <v-card-actions class="grey darken-3 justify-center">&copy;2019 —
-          <strong>FLO'S French Perfumes</strong>
-        </v-card-actions>
-      </v-card>-->
     </v-footer>
-  </div>
+  </v-card>
 </template>
 
 <script>
 import bottlesRetail from "../assets/bottlesRetail.png";
+import logoTransparent from "../assets/logoTransparent.png";
+import HeartValentine from "../assets/HeartValentine.png";
+import MiniCatalog from "../assets/MiniCatalog.png";
 
 export default {
   components: {},
   data() {
     return {
-      image: bottlesRetail
+      image: bottlesRetail,
+      logo: logoTransparent,
+      Valentine: HeartValentine,
+      Catalog: MiniCatalog
     };
   }
 };
