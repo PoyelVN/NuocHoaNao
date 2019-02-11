@@ -1,7 +1,5 @@
 <template>
-
-<!-- <img src="./assets/bottlesRetail.png" alt=""> -->
-
+<div>KU !</div>
 </template>
 
 <script>
