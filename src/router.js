@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Welcome from './views/Welcome.vue'
+import Quiz from './views/Quiz.vue'
 
 Vue.use(Router)
 
@@ -15,9 +15,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/Welcome',
-      name: 'Welcome',
-      component: Welcome
+      path: '/Quiz',
+      name: 'quiz',
+      component: Quiz
     },
   ]
 })
