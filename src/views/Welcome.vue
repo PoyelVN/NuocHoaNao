@@ -17,7 +17,6 @@
       >Answer 4 questions and you will know what perfume is the BEST fit for you !</h3>
     </div>
 
-<v-img :src="Catalog"></v-img>
 
     <!-- <h3
       class="text-xs-center primary accent--text"
