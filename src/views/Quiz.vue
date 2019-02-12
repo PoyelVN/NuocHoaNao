@@ -1,4 +1,5 @@
 <template>
+<div style="height: 100%;">
   <v-card class="mx-auto elevation-0" max-width="500" color="accent">
     <v-img
       src="https://flosfrenchperfumes.com/static/default/microsite/dang-cap/images/bg-2.jpg"
@@ -94,6 +95,14 @@
       >share</v-icon></v-btn>
     </v-card-actions>
   </v-card>
+<div  style="display: flex;
+  flex-flow: column;
+  height: 100%; background-color:black">
+  <div style="flex: 1 1 auto;background-color:black">
+  oki
+</div>
+</div>
+  </div>
 </template>
 
 <script>

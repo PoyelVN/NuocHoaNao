@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background-color:#000103">
+  <v-app class="primary">
     <snackbar/>
     <v-content>
       <router-view/>
