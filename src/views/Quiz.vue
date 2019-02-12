@@ -83,14 +83,15 @@
       >Next</v-btn>
       <v-btn
         round
-        icon
         v-else-if="step == questions.length +1"
-        right
-      ><v-icon color="primary"
-      @click="share()"
+        color="primary"
+        class="mr-2"
+        @click="share()"
               v-clipboard:copy="currentUrl"
               v-clipboard:success="onCopy"
-              v-clipboard:error="onError">share</v-icon></v-btn>
+              v-clipboard:error="onError"
+      >Share with your friends<v-icon right color="white"
+      >share</v-icon></v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -182,7 +183,7 @@ export default {
       this.$store.commit("setSnackbar", {
         color: "primary",
         timeout: 3000,
-        text: "Lien copié"
+        text: "Link added to clipboard!"
       });
     },
     goToWebsite() {
