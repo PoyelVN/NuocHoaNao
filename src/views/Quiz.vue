@@ -244,7 +244,7 @@ export default {
       return navigator.userAgent.indexOf("Mobile") !== -1;
     },
     currentUrl() {
-      return window.location.href;
+      return "I did the Flo's French Perfumes test. " + this.userPerfumeText + "! What about you? https://nuochoanao.firebaseapp.com"
     },
     next() {
       if (this.answers[this.step - 1]) {
