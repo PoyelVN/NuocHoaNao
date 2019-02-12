@@ -99,6 +99,7 @@
 // import lovely from "../assets/lovely";
 export default {
   data: () => ({
+    userPerfumeText: "I found out my perfume",
     step: 1,
     answers: [],
     questions: [
@@ -210,12 +211,16 @@ export default {
       } else {
         // console.log(allAnswers)
         if (perfume == "Charming" && allAnswers.Charming>=allAnswers.Divine && allAnswers.Charming>=allAnswers.Lovely && allAnswers.Charming>=allAnswers.Charisma){
+          this.userPerfumeText = "I am Light & Fresh, I am Charming"
           return true
         } else if (perfume == "Divine" && allAnswers.Divine>=allAnswers.Charming && allAnswers.Divine>=allAnswers.Lovely && allAnswers.Divine>=allAnswers.Charisma){
+          this.userPerfumeText = "I am Softly Sweet & Pure, I am Divine"
           return true
         } else if (perfume == "Lovely" && allAnswers.Lovely>=allAnswers.Charming && allAnswers.Lovely>=allAnswers.Divine && allAnswers.Lovely>=allAnswers.Charisma){
+          this.userPerfumeText = "I am Sweet & Passionate, I am Lovely"
           return true
         } else if (perfume == "Charisma" && allAnswers.Charisma>=allAnswers.Charming && allAnswers.Charisma>=allAnswers.Divine && allAnswers.Charisma>=allAnswers.Lovely){
+          this.userPerfumeText = "I am Wild & Attractive, I am Charisma"
           return true
         }
         return false
@@ -227,8 +232,8 @@ export default {
         navigator
           .share({
             title: "Flo's perfumes",
-            text: "Find out the perfume that's the most suitable for you",
-            url: this.currentUrl
+            text: "I did the Flo's French Perfumes test. " + this.userPerfumeText + "! What about you?",
+            url: "https://nuochoanao.firebaseapp.com"
           })
           .then(() => console.log("Share complete"));
       }
