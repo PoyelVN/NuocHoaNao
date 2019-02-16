@@ -1,107 +1,117 @@
 <template>
-<div style="height: 100%;">
-  <v-card class="mx-auto elevation-0" max-width="500" color="accent">
-    <v-img
-      src="https://flosfrenchperfumes.com/static/default/microsite/dang-cap/images/bg-2.jpg"
-      aspect-ratio="2.75"
-    ></v-img>
-    <v-card-title class="title font-weight-regular justify-space-between">
-      <span>{{ currentTitle }}</span>
-      <v-avatar
-        v-if="step < questions.length +1"
-        color="primary lighten-2"
-        class="subheading white--text"
-        size="24"
-        v-text="step"
-      ></v-avatar>
-    </v-card-title>
+  <div style="height: 100%;">
+    <v-card class="mx-auto elevation-0" max-width="500" color="accent">
+      <v-img
+        src="https://flosfrenchperfumes.com/static/default/microsite/dang-cap/images/bg-2.jpg"
+        aspect-ratio="2.75"
+      ></v-img>
+      <v-card-title class="title font-weight-regular justify-space-between">
+        <span>{{ currentTitle }}</span>
+        <v-avatar
+          v-if="step < questions.length +1"
+          color="primary lighten-2"
+          class="subheading white--text"
+          size="24"
+          v-text="step"
+        ></v-avatar>
+      </v-card-title>
 
-    <v-window v-model="step">
-      <v-window-item :value="index + 1" v-for="(question, index) in questions" :key="index">
-        <v-card-text>
-          <v-radio-group v-model="answers[index]" @click="step++">
-            <v-radio
-              class="mb-3"
-              color="primary"
-              v-for="answer in question.answers"
-              :key="answer.number"
-              :label="answer.text"
-              :value="answer.number"
-            ></v-radio>
-          </v-radio-group>
-        </v-card-text>
-      </v-window-item>
+      <v-window v-model="step">
+        <v-window-item :value="index + 1" v-for="(question, index) in questions" :key="index">
+          <v-card-text>
+            <v-radio-group v-model="answers[index]" @click="step++">
+              <v-radio
+                class="mb-3"
+                color="primary"
+                v-for="answer in question.answers"
+                :key="answer.number"
+                :label="answer.text"
+                :value="answer.number"
+              ></v-radio>
+            </v-radio-group>
+          </v-card-text>
+        </v-window-item>
 
-      <v-window-item :value="questions.length + 1">
-        <div class="pa-3 text-xs-center">
-          <v-list three-line class="accent">
-            <v-list-tile
-              v-if="isBest(perfume.title, true)>0"
-              v-for="(perfume, index) in perfumes"
-              :key="perfume.title"
-              avatar
-              @click="goToWebsite()"
-              style="transform: scale(0.9)"
-              :class="{bigger:isBest(perfume.title), 'elevation-4': isBest(perfume.title)}"
-            >
-              <v-list-tile-avatar size="60" class="mt-1" :class="{moving:isBest(perfume.title)}">
-                <img :src="perfume.avatar">
-              </v-list-tile-avatar>
+        <v-window-item :value="questions.length + 1">
+          <div class="pa-3 text-xs-center">
+            <v-list three-line class="accent">
+              <v-list-tile
+                v-if="isBest(perfume.title, true)>0"
+                v-for="(perfume, index) in perfumes"
+                :key="perfume.title"
+                avatar
+                @click="goToWebsite()"
+                style="transform: scale(0.9)"
+                :class="{bigger:isBest(perfume.title), 'elevation-4': isBest(perfume.title)}"
+              >
+                <v-list-tile-avatar size="60" class="mt-1" :class="{moving:isBest(perfume.title)}">
+                  <img :src="perfume.avatar">
+                </v-list-tile-avatar>
 
-              <v-list-tile-content class="ml-3 mt-1">
-                <v-list-tile-title v-html="perfume.title"></v-list-tile-title>
-                <v-list-tile-sub-title v-html="perfume.subtitle"></v-list-tile-sub-title>
-              </v-list-tile-content>
+                <v-list-tile-content class="ml-3 mt-1">
+                  <v-list-tile-title v-html="perfume.title"></v-list-tile-title>
+                  <v-list-tile-sub-title v-html="perfume.subtitle"></v-list-tile-sub-title>
+                </v-list-tile-content>
 
-              <v-list-tile-action>
-                <v-rating
-                  dense
-                  :value="isBest(perfume.title, true)"
-                  :length="isBest(perfume.title, true)"
-                  full-icon="favorite"
-                  color="red"
-                  readonly
-                ></v-rating>
-              </v-list-tile-action>
-            </v-list-tile>
-          </v-list>
-        </div>
-      </v-window-item>
-    </v-window>
+                <v-list-tile-action>
+                  <v-rating
+                    dense
+                    :value="isBest(perfume.title, true)"
+                    :length="isBest(perfume.title, true)"
+                    full-icon="favorite"
+                    color="red"
+                    readonly
+                  ></v-rating>
+                </v-list-tile-action>
+              </v-list-tile>
+            </v-list>
+          </div>
+        </v-window-item>
+      </v-window>
 
-    <v-divider class="mx-3"></v-divider>
+      <div style="text-align: center; margin-top: auto; margin-bottom: 25px;">
+        <v-btn
+          round
+          large
+          v-if="step == questions.length +1"
+          color="primary"
+          @click="goToWebsite()"
+        >Buy your perfume
+        <v-icon right>favorite</v-icon></v-btn>
+      </div>
 
-    <v-card-actions>
-      <v-btn round :disabled="step === 1" flat @click="step--">Back</v-btn>
-      <v-spacer></v-spacer>
-      <v-btn
-        round
-        v-if="step < questions.length +1 && answers[step-1]"
-        :disabled="!next"
-        color="primary"
-        depressed
-        @click="step++"
-      >Next</v-btn>
-      <v-btn
-        round
-        v-else-if="step == questions.length +1"
-        color="primary"
-        class="mr-2"
-        @click="share()"
-              v-clipboard:copy="currentUrl"
-              v-clipboard:success="onCopy"
-              v-clipboard:error="onError"
-      >Share with your friends<v-icon right color="white"
-      >share</v-icon></v-btn>
-    </v-card-actions>
-  </v-card>
-<div  style="display: flex;
+      <v-divider class="mx-3"></v-divider>
+
+      <v-card-actions>
+        <v-btn round :disabled="step === 1" flat @click="step--">Back</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn
+          round
+          v-if="step < questions.length +1 && answers[step-1]"
+          :disabled="!next"
+          color="primary"
+          depressed
+          @click="step++"
+        >Next</v-btn>
+        <v-btn
+          round
+          v-else-if="step == questions.length +1"
+          color="primary"
+          class="mr-2"
+          @click="share()"
+          v-clipboard:copy="currentUrl"
+          v-clipboard:success="onCopy"
+          v-clipboard:error="onError"
+        >Share with your friends
+          <v-icon right color="white">share</v-icon>
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+    <div style="display: flex;
   flex-flow: column;
   height: 100%; background-color:black">
-  <div style="flex: 1 1 auto;background-color:black">
-  oki
-</div>
-</div>
+      <div style="flex: 1 1 auto;background-color:black">oki</div>
+    </div>
   </div>
 </template>
 
@@ -181,7 +191,7 @@ export default {
     ]
   }),
   methods: {
-        onError(e) {
+    onError(e) {
       this.$store.commit("setSnackbar", {
         color: "error",
         timeout: 3000,
@@ -202,47 +212,70 @@ export default {
       );
     },
     isBest(perfume, rate) {
-      let allAnswers = {}
-      allAnswers.Charming = 0
-      allAnswers.Divine = 0
-      allAnswers.Lovely = 0
-      allAnswers.Charisma = 0
+      let allAnswers = {};
+      allAnswers.Charming = 0;
+      allAnswers.Divine = 0;
+      allAnswers.Lovely = 0;
+      allAnswers.Charisma = 0;
 
       for (let answer in this.answers) {
-        if(this.answers[answer] == 1) allAnswers.Charming++
-        if(this.answers[answer] == 2) allAnswers.Divine++
-        if(this.answers[answer] == 3) allAnswers.Lovely++
-        if(this.answers[answer] == 4) allAnswers.Charisma++
+        if (this.answers[answer] == 1) allAnswers.Charming++;
+        if (this.answers[answer] == 2) allAnswers.Divine++;
+        if (this.answers[answer] == 3) allAnswers.Lovely++;
+        if (this.answers[answer] == 4) allAnswers.Charisma++;
       }
 
       // if rate, return the rate
-      if (rate){
-        return allAnswers[perfume]
+      if (rate) {
+        return allAnswers[perfume];
       } else {
         // console.log(allAnswers)
-        if (perfume == "Charming" && allAnswers.Charming>=allAnswers.Divine && allAnswers.Charming>=allAnswers.Lovely && allAnswers.Charming>=allAnswers.Charisma){
-          this.userPerfumeText = "I am Light & Fresh, I am Charming"
-          return true
-        } else if (perfume == "Divine" && allAnswers.Divine>=allAnswers.Charming && allAnswers.Divine>=allAnswers.Lovely && allAnswers.Divine>=allAnswers.Charisma){
-          this.userPerfumeText = "I am Softly Sweet & Pure, I am Divine"
-          return true
-        } else if (perfume == "Lovely" && allAnswers.Lovely>=allAnswers.Charming && allAnswers.Lovely>=allAnswers.Divine && allAnswers.Lovely>=allAnswers.Charisma){
-          this.userPerfumeText = "I am Sweet & Passionate, I am Lovely"
-          return true
-        } else if (perfume == "Charisma" && allAnswers.Charisma>=allAnswers.Charming && allAnswers.Charisma>=allAnswers.Divine && allAnswers.Charisma>=allAnswers.Lovely){
-          this.userPerfumeText = "I am Wild & Attractive, I am Charisma"
-          return true
+        if (
+          perfume == "Charming" &&
+          allAnswers.Charming >= allAnswers.Divine &&
+          allAnswers.Charming >= allAnswers.Lovely &&
+          allAnswers.Charming >= allAnswers.Charisma
+        ) {
+          this.userPerfumeText = "I am Light & Fresh, I am Charming";
+          return true;
+        } else if (
+          perfume == "Divine" &&
+          allAnswers.Divine >= allAnswers.Charming &&
+          allAnswers.Divine >= allAnswers.Lovely &&
+          allAnswers.Divine >= allAnswers.Charisma
+        ) {
+          this.userPerfumeText = "I am Softly Sweet & Pure, I am Divine";
+          return true;
+        } else if (
+          perfume == "Lovely" &&
+          allAnswers.Lovely >= allAnswers.Charming &&
+          allAnswers.Lovely >= allAnswers.Divine &&
+          allAnswers.Lovely >= allAnswers.Charisma
+        ) {
+          this.userPerfumeText = "I am Sweet & Passionate, I am Lovely";
+          return true;
+        } else if (
+          perfume == "Charisma" &&
+          allAnswers.Charisma >= allAnswers.Charming &&
+          allAnswers.Charisma >= allAnswers.Divine &&
+          allAnswers.Charisma >= allAnswers.Lovely
+        ) {
+          this.userPerfumeText = "I am Wild & Attractive, I am Charisma";
+          return true;
         }
-        return false
+        return false;
       }
       //else return true if is the best
     },
-        share() {
+    share() {
       if (navigator.share && this.fromMobile) {
         navigator
           .share({
             title: "Flo's perfumes",
-            text: "I did the Flo's French Perfumes test. " + this.userPerfumeText + "! What about you?",
+            text:
+              "I did the Flo's French Perfumes test. " +
+              this.userPerfumeText +
+              "! What about you?",
             url: "https://nuochoanao.firebaseapp.com"
           })
           .then(() => console.log("Share complete"));
@@ -250,11 +283,15 @@ export default {
     }
   },
   computed: {
-        fromMobile() {
+    fromMobile() {
       return navigator.userAgent.indexOf("Mobile") !== -1;
     },
     currentUrl() {
-      return "I did the Flo's French Perfumes test. " + this.userPerfumeText + "! What about you? https://nuochoanao.firebaseapp.com"
+      return (
+        "I did the Flo's French Perfumes test. " +
+        this.userPerfumeText +
+        "! What about you? https://nuochoanao.firebaseapp.com"
+      );
     },
     next() {
       if (this.answers[this.step - 1]) {
@@ -267,7 +304,7 @@ export default {
       if (this.questions[this.step - 1]) {
         return this.questions[this.step - 1].text;
       } else {
-        return "Congratulation!";
+        return "Congratulation! You are:";
       }
     }
   }
@@ -279,7 +316,7 @@ export default {
   transform: scale(1) !important;
   border-radius: 18px;
   background-color: white !important;
-  margin-bottom:5px
+  margin-bottom: 5px;
 }
 .moving {
   animation-name: moving;
