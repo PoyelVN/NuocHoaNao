@@ -1,5 +1,4 @@
 <template>
-<!-- test git hub client -->
   <div style="height: 100%;">
     <v-card class="mx-auto elevation-0" max-width="500" color="accent">
       <v-img
